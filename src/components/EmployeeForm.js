@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import {View, Text, Picker} from 'react-native';
-import {CardSection, Input} from './common';
+import { View, Text, Picker, StyleSheet } from 'react-native';
+import { connect } from 'react-redux';
+import { employeeUpdate } from '../actions';
+import { CardSection, Input } from './common';
 
 class EmployeeForm extends Component {
     render() {
-        <View>
+        return (<View>
             <CardSection>
                 <Input
                     label="Name"
@@ -40,12 +42,8 @@ class EmployeeForm extends Component {
                 </Picker>
             </CardSection>
 
-            <CardSection>
-                <Button onPress={this.onButtonPress.bind(this)} >
-                    Create
-                    </Button>
-            </CardSection>
         </View>
+        );
     }
 }
 
@@ -56,5 +54,12 @@ const styles = StyleSheet.create({
     }
 });
 
+const mapStateToProps = (state) => {
+    const { name, phone, shift } = state.employeeForm;
 
-export default EmployeeForm;
+    return { name, phone, shift };
+};
+
+export default connect(mapStateToProps, {
+    employeeUpdate
+})(EmployeeForm);
